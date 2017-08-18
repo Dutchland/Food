@@ -11,16 +11,25 @@ public class Ingredient {
     }
 
     public double calories() {
-        double carbohydrates = getAmount(MacroType.CARBOHYDRATE).milliGrams() * MacroType.CARBOHYDRATE.getCaloriesPerGram() / 1000d;
-        double fat = getAmount(MacroType.FAT).milliGrams() * MacroType.FAT.getCaloriesPerGram() / 1000d;
-        double protein = getAmount(MacroType.PROTEIN).milliGrams() * MacroType.PROTEIN.getCaloriesPerGram() / 1000d;
+        double carbohydrates = getMacroAmount(MacroType.CARBOHYDRATE).milliGrams() * MacroType.CARBOHYDRATE.getCaloriesPerGram() / 1000d;
+        double fat = getMacroAmount(MacroType.FAT).milliGrams() * MacroType.FAT.getCaloriesPerGram() / 1000d;
+        double protein = getMacroAmount(MacroType.PROTEIN).milliGrams() * MacroType.PROTEIN.getCaloriesPerGram() / 1000d;
 
         return carbohydrates + fat + protein;
     }
 
-    public Amount getAmount(MacroType type) {
+    public Amount getMacroAmount(MacroType type) {
         MassPercentage percentage = product.getMacro(type);
-        return amount.multiply(percentage.value());
+        return calculateAmount(percentage);
+    }
+
+    public Amount getFiberAmount() {
+        MassPercentage percentage = product.getFiber();
+        return calculateAmount(percentage);
+    }
+
+    private Amount calculateAmount(MassPercentage massPercentage) {
+        return this.getAmount().multiply(massPercentage.value());
     }
 
     public Amount getAmount() {

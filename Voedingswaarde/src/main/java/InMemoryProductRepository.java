@@ -38,7 +38,7 @@ public class InMemoryProductRepository implements ProductRepository {
         macros.put(MacroType.SATURATED_FAT, new MassPercentage(0.001));
         macros.put(MacroType.PROTEIN, new MassPercentage(0.039));
 
-        return new Product("Magere melk", macros);
+        return new Product("Magere melk", macros, new MassPercentage(0.01d));
     }
 
     private Product makeVolkorenTarwemeel() {
@@ -49,7 +49,7 @@ public class InMemoryProductRepository implements ProductRepository {
         macros.put(MacroType.SATURATED_FAT, new MassPercentage(0.002));
         macros.put(MacroType.PROTEIN, new MassPercentage(0.114));
 
-        return new Product("Volkoren tarwemeel", macros);
+        return new Product("Volkoren tarwemeel", macros, new MassPercentage(0.01d));
     }
 
 
@@ -61,6 +61,6 @@ public class InMemoryProductRepository implements ProductRepository {
         macros.put(MacroType.SATURATED_FAT, new MassPercentage(0.035));
         macros.put(MacroType.PROTEIN, new MassPercentage(0.129));
 
-        return new Product("Egg", macros);
+        return new Product("Egg", macros, new MassPercentage(0.01d));
     }
 }

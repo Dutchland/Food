@@ -48,6 +48,6 @@ public class Main {
         System.out.println(pannenkoeken.caloriesForAmount(hundredGrams) + " Calories");
 
         Arrays.stream(MacroType.values())
-                .forEach(mt -> System.out.println(pannenkoeken.getMacroAmountPerAmount(mt, hundredGrams) + " " + mt.toString()));
+                .forEach(mt -> System.out.println(pannenkoeken.getMacroAmountForAmount(mt, hundredGrams) + " " + mt.toString()));
     }
 }

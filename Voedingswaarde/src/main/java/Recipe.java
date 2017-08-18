@@ -24,34 +24,30 @@ public class Recipe {
                 .sum();
     }
 
+    public double caloriesForAmount(Amount requestedAmount) {
+        double factor = amountFactor(requestedAmount);
+        return this.calories() * factor;
+    }
+
     public Amount getAmount() {
         Amount amount = ingredients.stream()
                 .map(Ingredient::getAmount)
-                .reduce(Amount.inGrams(0), Amount::add);
+                .reduce(Amount.ZERO(), Amount::add);
 
         return amount;
     }
 
-    public Amount getAmount(MacroType type) {
+    public Amount getMacroAmount(MacroType type) {
         Amount amount = ingredients.stream()
-                .map(i -> i.getAmount(type))
-                .reduce(Amount.inGrams(0), Amount::add);
+                .map(i -> i.getMacroAmount(type))
+                .reduce(Amount.ZERO(), Amount::add);
 
         return amount;
     }
 
-    public Amount getMacroAmountPerAmount(MacroType type, Amount requestedAmount) {
-        Amount amount = ingredients.stream()
-                .map(i -> i.getAmount(type))
-                .reduce(Amount.inGrams(0), Amount::add);
-
-        double factor = (double)requestedAmount.milliGrams() / (double) getAmount().milliGrams();
-        return amount.multiply(factor);
-    }
-
-    public double caloriesForAmount(Amount requestedAmount) {
-        double factor = (double)requestedAmount.milliGrams() / (double) getAmount().milliGrams();
-        return this.calories() * factor;
+    public Amount getMacroAmountForAmount(MacroType type, Amount requestedAmount) {
+        double factor = amountFactor(requestedAmount);
+        return getMacroAmount(type).multiply(factor);
     }
 
     @Override
@@ -64,5 +60,9 @@ public class Recipe {
                 .append("\n"));
 
         return builder.toString();
+    }
+
+    private double amountFactor(Amount requestedAmount) {
+        return (double)requestedAmount.milliGrams() / (double) getAmount().milliGrams();
     }
 }

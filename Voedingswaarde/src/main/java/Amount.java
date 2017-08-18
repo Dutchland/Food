@@ -47,4 +47,8 @@ public class Amount {
             return this.amountInMilliGrams + " milligram";
         }
     }
+
+    public static Amount ZERO() {
+        return Amount.inGrams(0);
+    }
 }
