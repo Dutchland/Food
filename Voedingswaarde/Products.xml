@@ -5,7 +5,7 @@
    <object class="java.util.HashMap">
     <void method="put">
      <object class="java.lang.Enum" method="valueOf">
-      <class>MacroType</class>
+      <class>voedingswaarde.MacroType</class>
       <string>CARBOHYDRATE</string>
      </object>
      <double>2.0</double>
@@ -16,3 +16,4 @@
    <string>arstr</string>
   </void>
  </object>
+</java>
