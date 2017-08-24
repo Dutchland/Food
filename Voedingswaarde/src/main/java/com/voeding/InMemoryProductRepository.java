@@ -2,6 +2,7 @@ package com.voeding;
 
 import com.voeding.domain.*;
 import com.voeding.domain.valueobjects.MassPercentage;
+import com.voeding.utils.IdGenerator;
 import com.voeding.utils.Lazy;
 
 import java.math.BigDecimal;
@@ -37,18 +38,13 @@ public class InMemoryProductRepository implements ProductRepository {
 
     @Override
     public ProductId save(ProtoProduct product) {
-        ProductId newId = generateUniqueId();
+        ProductId newId = new ProductId(IdGenerator.uniqueId());
 
         // Save in cache
         Product newProduct = new Product(newId, product.getName(), product.getMacros());
         products.value().add(newProduct);
 
         return newId;
-    }
-
-    private ProductId generateUniqueId() {
-        long nanoTime = System.nanoTime();
-        return new ProductId(nanoTime);
     }
 
     private static List<Product> initialize() {

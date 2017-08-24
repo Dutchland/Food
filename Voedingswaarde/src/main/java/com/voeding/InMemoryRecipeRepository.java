@@ -2,6 +2,7 @@ package com.voeding;
 
 import com.voeding.domain.*;
 import com.voeding.domain.valueobjects.Amount;
+import com.voeding.utils.IdGenerator;
 import com.voeding.utils.NonEmptyList;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class InMemoryRecipeRepository implements RecipeRepository {
 
     @Override
     public RecipeId save(ProtoRecipe recipe) {
-        RecipeId newId = generateUniqueId();
+        RecipeId newId = new RecipeId(IdGenerator.uniqueId());
 
         Recipe newRecipe = create(newId, recipe);
         this.recipes.add(newRecipe);
@@ -45,11 +46,6 @@ public class InMemoryRecipeRepository implements RecipeRepository {
                 .collect(Collectors.toList());
 
         return new Recipe(newId, recipe.getName(), new NonEmptyList<>(ingredients));
-    }
-
-    private RecipeId generateUniqueId() {
-        long nanoTime = System.nanoTime();
-        return new RecipeId(nanoTime);
     }
 
     private Ingredient makeIngredient(ProductId productId, Amount amount) {

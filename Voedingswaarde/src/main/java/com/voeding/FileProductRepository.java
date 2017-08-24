@@ -1,12 +1,13 @@
 package com.voeding;
 
-import com.voeding.domain.*;
-import com.voeding.domain.valueobjects.MassPercentage;
+import com.voeding.domain.Product;
+import com.voeding.domain.ProductId;
+import com.voeding.domain.ProtoProduct;
+import com.voeding.utils.IdGenerator;
 import com.voeding.utils.Lazy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class FileProductRepository implements ProductRepository {
@@ -35,7 +36,7 @@ public class FileProductRepository implements ProductRepository {
 
     @Override
     public ProductId save(ProtoProduct product) {
-        ProductId newId = generateUniqueId();
+        ProductId newId = new ProductId(IdGenerator.uniqueId());
         Product newProduct = new Product(newId, product.getName(), product.getMacros());
 
         saveToFile(newProduct);
@@ -52,19 +53,12 @@ public class FileProductRepository implements ProductRepository {
         // TODO: implement
     }
 
-
-
-    private MacroDto mapToDto(Map.Entry<MacroType, MassPercentage> e) {
-        return null;
-    }
-
-    private ProductId generateUniqueId() {
-        long nanoTime = System.nanoTime();
-        return new ProductId(nanoTime);
-    }
-
     private List<Product> readAllFromFile() {
         // TODO: implement
-        return new ArrayList<>();
+        List<ProductDto> dtos = new ArrayList<>();
+
+        return dtos.stream()
+                .map(dto -> dto.toEntity())
+                .collect(Collectors.toList());
     }
 }
