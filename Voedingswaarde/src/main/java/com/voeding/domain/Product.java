@@ -1,5 +1,6 @@
 package com.voeding.domain;
 
+import com.voeding.domain.valueobjects.MassPercentage;
 import com.voeding.utils.Conditions;
 
 import java.util.Arrays;
@@ -26,7 +27,7 @@ public class Product {
                 .filter(entry -> entry.getKey().equals(type))
                 .map(entry -> entry.getValue())
                 .findFirst()
-                .orElse(MassPercentage.zero());
+                .orElse(MassPercentage.ZERO());
     }
 
     public String getName() {

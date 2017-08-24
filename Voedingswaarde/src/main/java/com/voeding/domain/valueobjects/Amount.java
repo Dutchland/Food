@@ -1,4 +1,4 @@
-package com.voeding.domain;
+package com.voeding.domain.valueobjects;
 
 import com.voeding.utils.Conditions;
 
@@ -28,15 +28,23 @@ public class Amount {
     }
 
     public Amount multiply(BigDecimal multiplier) {
-        return new Amount(multiplier.multiply(BigDecimal.valueOf(amountInMilliGrams)).intValue());
+        long amountInMilligrams = BigDecimal.valueOf(this.amountInMilliGrams)
+                .multiply(multiplier)
+                .longValue();
+
+        return new Amount(amountInMilligrams);
     }
 
     public long milliGrams() {
         return amountInMilliGrams;
     }
 
-    public static Amount hundredGrams() {
+    public static Amount HUNDRED_GRAMS() {
         return new Amount(100 * MILLIGRAM_PER_GRAM);
+    }
+
+    public static Amount ZERO() {
+        return Amount.inGrams(0);
     }
 
     @Override
@@ -51,5 +59,20 @@ public class Amount {
         } else {
             return this.amountInMilliGrams + " milligram";
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Amount amount = (Amount) o;
+
+        return amountInMilliGrams == amount.amountInMilliGrams;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (amountInMilliGrams ^ (amountInMilliGrams >>> 32));
     }
 }

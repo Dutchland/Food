@@ -1,6 +1,7 @@
 package com.voeding;
 
 import com.voeding.domain.*;
+import com.voeding.domain.valueobjects.MassPercentage;
 import com.voeding.utils.Lazy;
 
 import java.math.BigDecimal;

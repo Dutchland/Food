@@ -1,4 +1,4 @@
-package com.voeding.domain;
+package com.voeding.domain.valueobjects;
 
 import com.voeding.utils.Conditions;
 import java.math.BigDecimal;
@@ -25,13 +25,28 @@ public class MassPercentage {
         return new MassPercentage(this.value().add(otherPercentage.value()));
     }
 
+    public static MassPercentage ZERO() {
+        return new MassPercentage(BigDecimal.ZERO);
+    }
+
     @Override
     public String toString() {
         BigDecimal percent = percentage.multiply(BigDecimal.valueOf(100));
         return percent.setScale(1, BigDecimal.ROUND_HALF_UP) + "%";
     }
 
-    public static MassPercentage zero() {
-        return new MassPercentage(BigDecimal.ZERO);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MassPercentage that = (MassPercentage) o;
+
+        return percentage.equals(that.percentage);
+    }
+
+    @Override
+    public int hashCode() {
+        return percentage.hashCode();
     }
 }

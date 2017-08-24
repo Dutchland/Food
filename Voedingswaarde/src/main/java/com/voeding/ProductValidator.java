@@ -1,7 +1,7 @@
 package com.voeding;
 
 import com.voeding.domain.MacroType;
-import com.voeding.domain.MassPercentage;
+import com.voeding.domain.valueobjects.MassPercentage;
 
 import java.util.Map;
 

@@ -1,5 +1,8 @@
 package com.voeding.domain;
 
+import com.voeding.domain.valueobjects.Amount;
+import com.voeding.domain.valueobjects.Calories;
+import com.voeding.domain.valueobjects.MassPercentage;
 import com.voeding.utils.Conditions;
 
 import java.math.BigDecimal;
@@ -17,19 +20,19 @@ public class Ingredient {
     }
 
     public Calories calories() {
-        double carbohydrates = getAmount(MacroType.CARBOHYDRATE).milliGrams() / 1000d * MacroType.CARBOHYDRATE.getCaloriesPerGram();
-        double fat = getAmount(MacroType.FAT).milliGrams() / 1000d * MacroType.FAT.getCaloriesPerGram();
-        double protein = getAmount(MacroType.PROTEIN).milliGrams() / 1000d * MacroType.PROTEIN.getCaloriesPerGram();
+        double carbohydrates = getMacroAmount(MacroType.CARBOHYDRATE).milliGrams() / 1000d * MacroType.CARBOHYDRATE.getCaloriesPerGram();
+        double fat = getMacroAmount(MacroType.FAT).milliGrams() / 1000d * MacroType.FAT.getCaloriesPerGram();
+        double protein = getMacroAmount(MacroType.PROTEIN).milliGrams() / 1000d * MacroType.PROTEIN.getCaloriesPerGram();
 
         return new Calories(BigDecimal.valueOf(carbohydrates + fat + protein));
     }
 
-    public Amount getAmount(MacroType type) {
+    public Amount getMacroAmount(MacroType type) {
         MassPercentage percentage = product.getMacro(type);
         return amount.multiply(percentage.value());
     }
 
-    public Amount getAmount() {
+    public Amount getMacroAmount() {
         return amount;
     }
 

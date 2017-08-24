@@ -1,6 +1,7 @@
 package com.voeding;
 
 import com.voeding.domain.*;
+import com.voeding.domain.valueobjects.Amount;
 import com.voeding.utils.NonEmptyList;
 
 import java.util.ArrayList;

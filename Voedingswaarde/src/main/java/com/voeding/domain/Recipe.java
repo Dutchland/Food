@@ -1,5 +1,7 @@
 package com.voeding.domain;
 
+import com.voeding.domain.valueobjects.Amount;
+import com.voeding.domain.valueobjects.Calories;
 import com.voeding.utils.Conditions;
 import com.voeding.utils.NonEmptyList;
 
@@ -39,16 +41,16 @@ public class Recipe {
 
     public Amount getAmount() {
         Amount amount = ingredients.stream()
-                .map(Ingredient::getAmount)
-                .reduce(Amount.inGrams(0), Amount::add);
+                .map(Ingredient::getMacroAmount)
+                .reduce(Amount.ZERO(), Amount::add);
 
         return amount;
     }
 
     public Amount getMacroAmount(MacroType type) {
         Amount amount = ingredients.stream()
-                .map(i -> i.getAmount(type))
-                .reduce(Amount.inGrams(0), Amount::add);
+                .map(i -> i.getMacroAmount(type))
+                .reduce(Amount.ZERO(), Amount::add);
 
         return amount;
     }

@@ -1,6 +1,7 @@
 package com.voeding;
 
 import com.voeding.domain.*;
+import com.voeding.domain.valueobjects.Amount;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -27,13 +28,13 @@ public class Main {
         for (Recipe recipe : recipeRepository.getAll()) {
             System.out.println();
             System.out.println(recipe);
-            System.out.println(recipe.calories() + " Calories");
+            System.out.println(recipe.calories());
             System.out.println();
             System.out.println("Per 100 gram:");
-            System.out.println(recipe.caloriesForAmount(Amount.hundredGrams()) + " Calories");
+            System.out.println(recipe.caloriesForAmount(Amount.HUNDRED_GRAMS()));
 
             Arrays.stream(MacroType.values())
-                    .forEach(mt -> System.out.println(recipe.getMacroAmountForAmount(mt, Amount.hundredGrams()) + " " + mt.toString()));
+                    .forEach(mt -> System.out.println(recipe.getMacroAmountForAmount(mt, Amount.HUNDRED_GRAMS()) + " " + mt.toString()));
         }
     }
 }

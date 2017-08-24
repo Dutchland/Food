@@ -1,5 +1,6 @@
 package com.voeding.domain;
 
+import com.voeding.domain.valueobjects.Amount;
 import com.voeding.utils.Conditions;
 
 import java.util.Map;
