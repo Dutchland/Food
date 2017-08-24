@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_121" class="java.beans.XMLDecoder">
- <object class="ProductDto">
+ <object class="com.voeding.ProductDto">
   <void property="macros">
    <object class="java.util.HashMap">
     <void method="put">
      <object class="java.lang.Enum" method="valueOf">
-      <class>voedingswaarde.MacroType</class>
+      <class>com.voeding.domain.MacroType</class>
       <string>CARBOHYDRATE</string>
      </object>
      <double>2.0</double>
@@ -16,4 +16,3 @@
    <string>arstr</string>
   </void>
  </object>
-</java>
